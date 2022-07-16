@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <!-- Blog Entries Column -->
+        <div class="col-md-8 mt-3 left">
+        {% for post in posts %}
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2 class="card-title">{{post.title}}</h2>
+                    <p class="card-text text-muted h6">{{post.author}} | {{post.created}} </p>
+                    <p class="card-text">{{post.body|safe|slice:":200"}} ... </p>
+                    <h6>Tags : 
+                        {% for tag in post.tags.all %}
+                            <a href="{% url 'post_lists_page_bt_tag' tag.slug %}">{{tag.name}}</a>
+                            {% if not forloop.last %},{% endif %}
+                        {% endfor %}
+                        <br><br>
+                   
+                    <a href="{{ post.get_absolute_url }}" class="btn btn-primary">Read More &rarr;</a>
+
+                    
+
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+        
+           <div class="col-md-4 float-right ">
+                <div class="card my-4">
+                    <h5 class="card-header">Teglar</h5>
+                    <div class="card-body tag_a">
+                            {% for tag in tags %}
+                                <a href="{% url 'post_lists_page_bt_tag' tag.slug %}">{{tag}}, </a>
+                            {% endfor %}
+
+                    </div>
+                </div>
+
+            </div>
+
+    </div>
+</div>
+  
+{% endblock content %}

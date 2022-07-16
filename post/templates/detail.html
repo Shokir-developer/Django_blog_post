@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 card mb-4  mt-3 left  top">
+      <div class="card-body">
+        <h1>{{post.title}}</h1>
+        <p class=" text-muted">{{post.author}} | {{post.created}}</p>
+        <p class="card-text ">{{post.body|safe}}</p>
+      </div>
+              <form method="POST">
+          {% csrf_token %}
+          <button style="background:none;" type="submit" name="Like" class="far fa-1x fa-thumbs-up text-secondary" >
+            {{post.like_count}}
+          </button>
+
+          <button style="background:none;" type="submit" name="Dislike" class="far fa-1x fa-thumbs-down text-secondary" >
+            {{post.dislike_count}}
+          </button>
+        </form>
+    </div>
+
+    {% include 'sidebar.html' %}
+    
+  </div>
+</div>
+
+{% endblock content %}
+
